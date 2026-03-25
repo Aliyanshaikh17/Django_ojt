@@ -12,4 +12,5 @@ class Student(models.Model):
         return self.name
 
     class Meta:
-        pass
+        verbose_name = "Student"
+        verbose_name_plural = "Students"
