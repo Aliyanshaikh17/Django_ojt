@@ -39,3 +39,17 @@ def post_data(request):
     return JsonResponse({
         'error': 'Only POST method allowed'
     })
+
+
+
+'''Description: Learn Function Base Apis 
+                2. learn GET method and implement it'''
+
+
+def get_all_data(request):
+    if request.method == "GET":
+        Students = list(Information.objects.values())
+        return JsonResponse(Students, safe=False)
+    
+    return JsonResponse({'error': 'Only GET method allowed'})
+
