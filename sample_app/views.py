@@ -53,3 +53,20 @@ def get_all_data(request):
     
     return JsonResponse({'error': 'Only GET method allowed'})
 
+
+
+'''Description: Learn Function Base Apis 
+                GET by id ( in this api i use primary key) '''
+
+def get_one(request, pk):
+    try:
+        user = Information.objects.get(id=pk)
+        data = {
+            'id': user.id,
+            'name': user.name,
+            'username': user.username,
+            'city': user.city
+        }
+        return JsonResponse(data)
+    except Information.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
