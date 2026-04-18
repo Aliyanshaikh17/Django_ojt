@@ -70,3 +70,35 @@ def get_one(request, pk):
         return JsonResponse(data)
     except Information.DoesNotExist:
         return JsonResponse({'error': 'User not found'}, status=404)
+
+
+
+
+
+'''Description: Learn Function Base Apis 
+                learn PUT method and implement it  '''
+
+
+@csrf_exempt
+def put_stu(request, pk):
+    if request.method == 'PUT':
+        try:
+            info = Information.objects.get(id=pk)
+            data = json.loads(request.body)
+            
+            info.name = data.get('name', info.name)
+            info.username = data.get('username', info.username)
+            info.password = data.get('password', info.password)
+            info.city = data.get('city', info.city)
+            
+            info.save()
+
+            return JsonResponse({'message': 'information updated successfully'})
+        
+        except Information.DoesNotExist:
+            return JsonResponse({'error': 'information not found'}, status=404)
+        
+    return JsonResponse({'error': 'Only PUT method allowed'})
+
+
+
