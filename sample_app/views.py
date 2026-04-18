@@ -102,3 +102,21 @@ def put_stu(request, pk):
 
 
 
+
+'''Description: Learn Function Base Apis 
+                learn DELETE method and implement it  '''
+
+
+
+@csrf_exempt
+def delete_stu(request, pk):
+    if request.method == 'DELETE':
+        try:
+            info = Information.objects.get(id=pk)
+            info.delete()
+            return JsonResponse({'message': 'information deleted successfully'})
+        
+        except Information.DoesNotExist:
+            return JsonResponse({'error': 'information not found'}, status=404)
+        
+    return JsonResponse({'error': 'Only DELETE method allowed'})
