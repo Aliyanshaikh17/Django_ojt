@@ -9,4 +9,5 @@ urlpatterns = [
    path('get/<int:pk>/', views.get_one , name='get_one'),
    path('put/<int:pk>/', views.put_stu , name='put'),
    path('delete/<int:pk>/', views.delete_stu , name='delete_stu'),
+   path('register/', views.register , name='register'),
 ]
