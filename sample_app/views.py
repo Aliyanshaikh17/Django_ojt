@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
-from .models import Student , Information
+from .models import Student , Information , User
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -120,3 +120,33 @@ def delete_stu(request, pk):
             return JsonResponse({'error': 'information not found'}, status=404)
         
     return JsonResponse({'error': 'Only DELETE method allowed'})
+
+
+
+
+'''Description: Learn Function Base Apis 
+                write user register api  '''
+@csrf_exempt
+def register(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'error':'Email already exists'},status=404)
+        
+        user = User.objects.create(
+            username=username,
+            email=email,
+            password=password,
+        )
+
+        return JsonResponse({'message':'user register successfully'})
+    
+    return JsonResponse({'error':'Only POST method allowed'})
+        
+
+      
