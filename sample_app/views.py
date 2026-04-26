@@ -149,4 +149,25 @@ def register(request):
     return JsonResponse({'error':'Only POST method allowed'})
         
 
-      
+
+
+'''Description: Learn Function Base Apis 
+                learn and write login register api  '''
+@csrf_exempt
+def login(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        email = data.get('email')
+        password = data.get('password')  
+
+        try:
+            user = User.objects.get(email=email,password=password)
+            return JsonResponse({
+                'message':'login successful',
+                'username':user.username
+            })
+        except User.DoesNotExist:
+            return JsonResponse({'error':'invalid email or password'},status=401)
+    
+    return JsonResponse({'error':'Only POST method allowed'})

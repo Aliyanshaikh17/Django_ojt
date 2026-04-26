@@ -10,4 +10,5 @@ urlpatterns = [
    path('put/<int:pk>/', views.put_stu , name='put'),
    path('delete/<int:pk>/', views.delete_stu , name='delete_stu'),
    path('register/', views.register , name='register'),
+   path('login/', views.login , name='login')
 ]
