@@ -171,3 +171,24 @@ def login(request):
             return JsonResponse({'error':'invalid email or password'},status=401)
     
     return JsonResponse({'error':'Only POST method allowed'})
+
+@csrf_exempt
+def admin_login(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        username = data.get('username')
+        password = data.get('password')
+
+        try:
+            user = User.objects.get(username=username, password=password)
+
+            if user.username == 'admin':
+                return JsonResponse({'message':'admin login successfully'})
+            else:
+                return JsonResponse({'error':'you are not admin'})
+
+        except User.DoesNotExist:
+            return JsonResponse({'error':'invalid username or password'})
+        
+    return JsonResponse({'error':'Only POST method allowed'})
